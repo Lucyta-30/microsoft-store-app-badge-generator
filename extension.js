@@ -46,7 +46,7 @@ function activate(context) {
 		const windowModeOptions = [
 			{
 				label: "Popup",
-				decription: "MiniPDP Window Mode invoked from the badge"
+				description: "MiniPDP Window Mode invoked from the badge"
 			},
 			{
 				label: "Full",
@@ -65,7 +65,7 @@ function activate(context) {
 		const themeOptions = [
 			{
 				label: "Dark",
-				decription: "Dark Themed Badge"
+				description: "Dark Themed Badge"
 			},
 			{
 				label: "Light",
@@ -88,7 +88,7 @@ function activate(context) {
 		const animationOptions = [
 			{
 				label: "Off",
-				decription: "Turn off badge animation"
+				description: "Turn off badge animation"
 			},
 			{
 				label: "On",
