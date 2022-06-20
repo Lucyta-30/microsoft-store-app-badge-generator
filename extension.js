@@ -21,14 +21,13 @@ function activate(context) {
 			return;
 		 }
 		 
-		var offsetLength = 4503599627370495 //max value, use for string indexing;
 		//PRODUCT ID
 		const productId = await vscode.window.showInputBox({
 			placeHolder: 'Type in your Product ID'
 		 });
 		 editor.edit((edit) => {
-			edit.insert(new vscode.Position(0,0), "<script type = \"module\" src=\"https://getbadgecdn.azureedge.net/ms-store-badge.bundled.js\"></script>");
-			edit.insert(new vscode.Position(1,0), "<ms-store-badge productid=\"" + productId + "\"");
+			edit.insert(editor.selection.active, "<script type = \"module\" src=\"https://getbadgecdn.azureedge.net/ms-store-badge.bundled.js\"></script>");
+			edit.insert(editor.selection.active, "<ms-store-badge productid=\"" + productId + "\"");
 		 })
 
 		//CAMPAIGN ID
@@ -37,7 +36,7 @@ function activate(context) {
 		 });
 		 if(campaignId != "") {
 			editor.edit((edit) => {
-				edit.insert(new vscode.Position(1, offsetLength), " cid=\"" + campaignId + "\"");
+				edit.insert(editor.selection.active, " cid=\"" + campaignId + "\"");
 			})
 		 }
 
@@ -56,7 +55,7 @@ function activate(context) {
 		await vscode.window.showQuickPick(windowModeOptions).then(option => {
 			windowMode = option.label;
 			editor.edit((edit) => {
-				edit.insert(new vscode.Position(1, offsetLength), " windowMode=\"" + windowMode.toLowerCase() + "\"");
+				edit.insert(editor.selection.active, " windowMode=\"" + windowMode.toLowerCase() + "\"");
 			})
 		});
 
@@ -79,7 +78,7 @@ function activate(context) {
 		await vscode.window.showQuickPick(themeOptions).then(option => {
 			theme = option.label;
 			editor.edit((edit) => {
-				edit.insert(new vscode.Position(1, offsetLength), " theme=\"" + theme.toLowerCase() + "\"" + " size=\"large\"");
+				edit.insert(editor.selection.active, " theme=\"" + theme.toLowerCase() + "\"" + " size=\"large\"");
 			})
 		});
 
@@ -98,10 +97,22 @@ function activate(context) {
 		await vscode.window.showQuickPick(animationOptions).then(option => {
 			animation = option.label;
 			editor.edit((edit) => {
-				edit.insert(new vscode.Position(1, offsetLength), " animation=\"" + animation.toLowerCase() + "\"> </ms-store-badge>");
+				edit.insert(editor.selection.active, " animation=\"" + animation.toLowerCase() + "\"></ms-store-badge>");
 			})
 		});
 
+		/*
+		//Webview
+		const panel = vscode.window.createWebviewPanel(
+			'preview',
+			'Preview',
+			vscode.ViewColumn.One,
+			{}
+		);
+		//panel.webview.html = editor.document.getText();
+		console.log(editor.document.getText());
+		//vscode.window.showTextDocument(editor.document, editor.viewColumn);
+		*/
 		});
 	context.subscriptions.push(disposable);
 }
